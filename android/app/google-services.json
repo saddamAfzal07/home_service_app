@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "26925019830",
+    "project_id": "e-travelers",
+    "storage_bucket": "e-travelers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26925019830:android:25ffc163755a7a5dbe6c17",
+        "android_client_info": {
+          "package_name": "com.example.final_year_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26925019830-1sltvvmtra773ihpmfatoek9dbnvnduu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.final_year_project",
+            "certificate_hash": "7070416b7b98460c519e008d5d2e38c58091ba52"
+          }
+        },
+        {
+          "client_id": "26925019830-4uu639165oqfe6659e5u50q6gv4l30un.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfZ60IwaGjBLHLcA7UXF2Y-lZwFsLVEdI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26925019830-4uu639165oqfe6659e5u50q6gv4l30un.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

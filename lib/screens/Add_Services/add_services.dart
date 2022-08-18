@@ -1,5 +1,7 @@
-import 'package:final_year_project/screens/add_ser/register_self.dart';
-import 'package:final_year_project/screens/add_ser/services_model.dart';
+import 'package:final_year_project/screens/Add_Services/register_self.dart';
+import 'package:final_year_project/screens/Add_Services/register_self.dart';
+import 'package:final_year_project/screens/Add_Services/services_model.dart';
+import 'package:final_year_project/screens/dashboard_screen/dashboard.dart';
 import 'package:flutter/material.dart';
 
 class Categories extends StatelessWidget {
@@ -12,6 +14,13 @@ class Categories extends StatelessWidget {
         centerTitle: true,
         title: const Text(
           "Add Service",
+        ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: ((context) => Dashboard())));
+          },
+          icon: Icon(Icons.arrow_back_ios),
         ),
       ),
       body: Padding(
@@ -49,14 +58,42 @@ class Categories extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => RegisterService(
-                                        service: "Electrician",
+                                        service: "Electrician Services",
                                       )));
                         } else if (UserNotifications[index].index == 1) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => RegisterService(
-                                        service: "AC-Repair",
+                                        service: "AC-Repair Services",
+                                      )));
+                        } else if (UserNotifications[index].index == 2) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RegisterService(
+                                        service: "Plumber Services",
+                                      )));
+                        } else if (UserNotifications[index].index == 3) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RegisterService(
+                                        service: "Mechanic Services",
+                                      )));
+                        } else if (UserNotifications[index].index == 4) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RegisterService(
+                                        service: "Laundry Services",
+                                      )));
+                        } else if (UserNotifications[index].index == 5) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RegisterService(
+                                        service: "Cleaning Services",
                                       )));
                         }
                       },
@@ -67,7 +104,7 @@ class Categories extends StatelessWidget {
                           ),
                         ),
                         title: Text(
-                          "${UserNotifications[index].name} ",
+                          "${UserNotifications[index].Servicename} ",
                           style: TextStyle(
                             fontSize: 14.0,
                             color: Colors.black87,

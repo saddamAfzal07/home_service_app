@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:final_year_project/screens/add_ser/check/check_latlong.dart';
 import 'package:final_year_project/screens/components/user_id.dart';
 import 'package:final_year_project/screens/forget_password/forget_password.dart';
-import 'package:final_year_project/screens/home_screen/drawer.dart';
+import 'package:final_year_project/screens/Drawer/drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -43,6 +44,7 @@ class _UserProfileState extends State<UserProfile> {
         name = response.data()!["user_name"];
         email = response.data()!["email"];
         phone = response.data()!["phoneno"];
+        LatLngCheck.currentuserName = response.data()!["user_name"];
       });
     } catch (e) {}
   }
@@ -50,10 +52,14 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawerbox(),
       appBar: AppBar(
-        title: Text("Profile"),
-      ),
+          title: Text("Profile"),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          )),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -65,11 +71,11 @@ class _UserProfileState extends State<UserProfile> {
               children: [
                 Icon(
                   Icons.person,
-                  size: 35,
+                  size: 30,
                   color: Colors.blue,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
                     "User Name    ",
                     style: TextStyle(
@@ -90,12 +96,12 @@ class _UserProfileState extends State<UserProfile> {
             Row(
               children: [
                 Icon(
-                  Icons.person,
-                  size: 35,
+                  Icons.call,
+                  size: 30,
                   color: Colors.blue,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
                     "Mobile #        ",
                     style: TextStyle(
@@ -116,12 +122,12 @@ class _UserProfileState extends State<UserProfile> {
             Row(
               children: [
                 Icon(
-                  Icons.person,
-                  size: 35,
+                  Icons.email,
+                  size: 30,
                   color: Colors.blue,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
                     "Email             ",
                     style: TextStyle(

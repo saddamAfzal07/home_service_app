@@ -1,6 +1,8 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:final_year_project/screens/home_screen/drawer.dart';
-import 'package:final_year_project/screens/service_categories/electricians.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:final_year_project/screens/ServiceProviders/service_provider.dart';
+import 'package:final_year_project/screens/add_ser/check/check_latlong.dart';
+import 'package:final_year_project/screens/Drawer/drawer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,13 +13,30 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _current = 0;
-  final List<String> images = [
-    "assets/images/bus1.jpg",
-    "assets/images/bus2.jpg",
-    "assets/images/bus3.jpg",
-    "assets/images/bus4.jpg",
-  ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserProfileData();
+  }
+
+  getUserProfileData() async {
+    print("start");
+    try {
+      print("gone");
+      User? user = FirebaseAuth.instance.currentUser;
+      var response = await FirebaseFirestore.instance
+          .collection('Userlist')
+          .doc(user!.uid)
+          .get();
+
+      setState(() {
+        LatLngCheck.currentuserName = response.data()!["user_name"];
+        print(LatLngCheck.currentuserName);
+      });
+    } catch (e) {}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,28 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         backgroundColor: Color(0xff3c83f1),
         elevation: 0,
-        title: Text("i-Services"),
+        title: Text("Fori Kam"),
       ),
       drawer: Drawerbox(),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Stack(
-            //   clipBehavior: Clip.none,
-            //   // fit: StackFit.expand,
-            //   children: [
-            //     Container(
-            //       width: double.infinity,
-            //       height: 100,
-            //       color: Color(0xff3c83f1),
-            //     ),
-            //     Positioned(
-            //       top: 100,
-            //       left: 0,
-            //       right: 0,
-            //
-            //
-            //     child:
             Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
@@ -60,7 +63,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.white),
                   ),
                 )),
-
             SizedBox(
               height: 50,
             ),
@@ -87,12 +89,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 100,
                         child: InkWell(
                           onTap: () {
-                            print("move");
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: ((context) => Electricians(
-                                          servicess: "Electrician",
+                                          servicess: "Electrician Services",
                                           deliver: "Electrician",
                                         ))));
                           },
@@ -135,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: ((context) => Electricians(
-                                        servicess: "AC-Repair",
+                                        servicess: "AC-Repair Services",
                                         deliver: "AC Repair",
                                       ))));
                         },
@@ -171,35 +172,46 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.2),
-                                spreadRadius: 2,
-                                blurRadius: 3,
-                                offset:
-                                    Offset(0, 0), // changes position of shadow
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => Electricians(
+                                        servicess: "Plumber Services",
+                                        deliver: "Plumber",
+                                      ))));
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 2,
+                                  blurRadius: 3,
+                                  offset: Offset(
+                                      0, 0), // changes position of shadow
+                                ),
+                              ],
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12)),
+                          height: 100,
+                          width: 110,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              SizedBox(
+                                  height: 50,
+                                  child:
+                                      Image.asset("assets/images/plumber.png")),
+                              Text(
+                                "Plumber",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
                               ),
                             ],
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12)),
-                        height: 100,
-                        width: 110,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SizedBox(
-                                height: 50,
-                                child:
-                                    Image.asset("assets/images/plumber.png")),
-                            Text(
-                              "Plumber",
-                              style: TextStyle(
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       )
                     ],
@@ -216,13 +228,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 100,
                         child: InkWell(
                           onTap: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: ((context) => Electricians(
-                            //               servicess: "Electrician",
-
-                            //             ))));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => Electricians(
+                                          servicess: "Mechanic Services",
+                                          deliver: "Mechanic",
+                                        ))));
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -259,13 +271,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: ((context) => Electricians(
-                          //               servicess: "Generator Service",
-                          //             )))
-                          //             );
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => Electricians(
+                                        servicess: "Laundry Services",
+                                        deliver: "Laundry",
+                                      ))));
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -299,34 +311,45 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.2),
-                                spreadRadius: 2,
-                                blurRadius: 3,
-                                offset:
-                                    Offset(0, 0), // changes position of shadow
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => Electricians(
+                                        servicess: "Cleaning Services",
+                                        deliver: "Cleaner",
+                                      ))));
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 2,
+                                  blurRadius: 3,
+                                  offset: Offset(
+                                      0, 0), // changes position of shadow
+                                ),
+                              ],
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12)),
+                          height: 100,
+                          width: 110,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              SizedBox(
+                                  height: 50,
+                                  child: Image.asset("assets/images/mop.png")),
+                              Text(
+                                "Cleaning",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
                               ),
                             ],
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12)),
-                        height: 100,
-                        width: 110,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SizedBox(
-                                height: 50,
-                                child: Image.asset("assets/images/mop.png")),
-                            Text(
-                              "Cleaner",
-                              style: TextStyle(
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       )
                     ],
@@ -334,46 +357,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-
-            // ),
-
-            // Positioned(
-            //   top: 0,
-            //   left: 0,
-            //   right: 0,
-            //   child: CarouselSlider(
-            //     items: images
-            //         .map((item) => Container(
-            //               decoration: BoxDecoration(
-            //                 borderRadius: BorderRadius.circular(14),
-            //               ),
-            //               // height: 100,
-            //               // width: 100,
-            //               child: Center(
-            //                 child: ClipRRect(
-            //                   borderRadius: BorderRadius.circular(14),
-            //                   child: Image.asset(
-            //                     item,
-            //                     fit: BoxFit.cover,
-            //                     width: 1000,
-            //                   ),
-            //                 ),
-            //               ),
-            //             ))
-            //         .toList(),
-            //     options: CarouselOptions(
-            //         autoPlay: true,
-            //         aspectRatio: 3,
-            //         enlargeCenterPage: true,
-            //         onPageChanged: (index, reason) {
-            //           setState(() {
-            //             _current = index;
-            //           });
-            //         }),
-            //   ),
-            // ),
-            //   ],
-            // ),
           ],
         ),
       ),

@@ -36,11 +36,10 @@ class _SignupScreenState extends State<SignupScreen> {
       isloading = true;
     });
     try {
-      print(email.text);
-      print(password.text);
-      FirebaseAuth auth = FirebaseAuth.instance;
+      // FirebaseAuth auth = FirebaseAuth.instance;
       User? user = FirebaseAuth.instance.currentUser;
-      auth
+
+      FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: email.text, password: password.text)
           .then((signedInUser) => FirebaseFirestore.instance
@@ -68,25 +67,68 @@ class _SignupScreenState extends State<SignupScreen> {
                                 builder: (context) => LoginScreen()))
                       }));
     } on FirebaseAuthException catch (e) {
-      print("====>>>> email exception");
-      print(e);
-
       if (e.code == 'email-already-in-use') {
         setState(() {
-          print("====>>>> email");
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("The account already exists for that email"),
-            backgroundColor: Colors.red.shade400,
-            behavior: SnackBarBehavior.floating,
-          ));
+          isloading = false;
         });
-      } else {
-        print("Firebase");
+        print('The account already exists for that email.');
       }
     } catch (e) {
-      print("=====>>>>>>");
       print(e);
     }
+    // try {
+    //   print(email.text);
+    //   print(password.text);
+    // FirebaseAuth auth = FirebaseAuth.instance;
+    // User? user = FirebaseAuth.instance.currentUser;
+    // auth
+    //     .createUserWithEmailAndPassword(
+    //         email: email.text, password: password.text)
+    //     .then((signedInUser) => FirebaseFirestore.instance
+    //             .collection("Userlist")
+    //             .doc(signedInUser.user?.uid)
+    //             .set({
+    //           'user_Id': user?.uid,
+    //           'user_name': username.text,
+    //           'joinDate': DateTime.now().millisecondsSinceEpoch,
+    //           'email': email.text,
+    //           'phoneno': phone.text,
+    //         }).then((signedInUser) => {
+    //                   setState(() {
+    //                     isloading = false;
+    //                   }),
+    //                   print("Successfull"),
+    //                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //                     content: Text("Successfully Signup"),
+    //                     backgroundColor: Colors.green,
+    //                     behavior: SnackBarBehavior.floating,
+    //                   )),
+    //                   Navigator.pushReplacement(
+    //                       context,
+    //                       MaterialPageRoute(
+    //                           builder: (context) => LoginScreen()))
+    //                 }));
+    // }
+    //  on FirebaseAuthException catch (e) {
+    //   print("====>>>> email exception");
+    //   print(e);
+
+    //   if (e.code == 'email-already-in-use') {
+    //     setState(() {
+    //       print("====>>>> email");
+    //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //         content: Text("The account already exists for that email"),
+    //         backgroundColor: Colors.red.shade400,
+    //         behavior: SnackBarBehavior.floating,
+    //       ));
+    //     });
+    //   }
+
+    // }
+    // catch (e) {
+    //   print("=====>>>>>>");
+    //   print(e);
+    // }
   }
 
   //Password validation

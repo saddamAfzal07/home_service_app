@@ -1,7 +1,8 @@
-import 'package:final_year_project/screens/add_ser/add_services.dart';
+import 'package:final_year_project/screens/Add_Services/add_services.dart';
+import 'package:final_year_project/screens/customer_care/customer_care.dart';
 import 'package:final_year_project/screens/home_screen/homescreen.dart';
-import 'package:final_year_project/screens/my_tickets/my_tickets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -13,7 +14,7 @@ class _DashboardState extends State<Dashboard> {
   final List<Widget> screens = [
     const HomeScreen(),
     const Categories(),
-    const MyTickets(),
+    const CustomerCare(),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = const HomeScreen();
@@ -59,7 +60,8 @@ class _DashboardState extends State<Dashboard> {
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 30),
+                        padding:
+                            const EdgeInsets.only(left: 30, bottom: 5, top: 5),
                         child: Image.asset(
                           "assets/images/addservice.png",
                           height: 45,
@@ -71,13 +73,20 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 40),
+                padding: const EdgeInsets.only(right: 40, bottom: 5, top: 5),
                 child: Row(
                   children: [
-                    Image.asset(
-                      "assets/images/customer.png",
-                      height: 45,
-                      width: 45,
+                    InkWell(
+                      onTap: () async {
+                        var number = "03401679731"; //set the number here
+                        bool? res =
+                            await FlutterPhoneDirectCaller.callNumber(number);
+                      },
+                      child: Image.asset(
+                        "assets/images/customer.png",
+                        height: 45,
+                        width: 45,
+                      ),
                     ),
                   ],
                 ),

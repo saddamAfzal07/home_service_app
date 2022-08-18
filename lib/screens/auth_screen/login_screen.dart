@@ -1,3 +1,4 @@
+import 'package:final_year_project/screens/add_ser/check/check_latlong.dart';
 import 'package:final_year_project/screens/components/user_id.dart';
 import 'package:final_year_project/screens/dashboard_screen/dashboard.dart';
 import 'package:final_year_project/screens/forget_password/forget_password.dart';
@@ -24,6 +25,9 @@ class _LoginScreenState extends State<LoginScreen> {
   bool? newuser;
 
   login(String email1, pass1) async {
+    setState(() {
+      isloading = true;
+    });
     // final isvalid = _formKey.currentState!.validate();
     // if (isvalid) {
     try {
@@ -32,7 +36,12 @@ class _LoginScreenState extends State<LoginScreen> {
         password: pass1,
       );
       Userdata.userId = credential.user!.uid;
+
       print(Userdata.userId);
+      // LatLngCheck.currentuserName = credential.user!.uid;
+      // ;
+      // print(LatLngCheck.currentuserName);
+
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
@@ -40,11 +49,17 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         (route) => false,
       );
+      setState(() {
+        isloading = false;
+      });
 
       logindata!.setBool("login", false);
       logindata!.setString("username", email.text);
       logindata!.setString("password", password.text);
     } on FirebaseAuthException catch (e) {
+      setState(() {
+        isloading = false;
+      });
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text("User not found"),
@@ -53,6 +68,9 @@ class _LoginScreenState extends State<LoginScreen> {
         ));
         print('No user found for that email.');
       } else if (e.code == 'wrong-password') {
+        setState(() {
+          isloading = false;
+        });
         await ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text("Wrong Password"),
           backgroundColor: Colors.red.shade400,
@@ -79,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late SharedPreferences logindataa;
   late String usernamme;
   late String pass;
-
+  bool isloading = false;
   void checkiflogin() async {
     logindata = await SharedPreferences.getInstance();
 
@@ -205,33 +223,37 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         SizedBox(height: 20),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 46,
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(24)),
-                              primary: Colors.white,
-                              backgroundColor: Color(0xFF4167b2),
-                            ),
-                            onPressed: () {
-                              final isvalid = _formKey.currentState!.validate();
-                              if (isvalid) {
-                                login(email.text, password.text);
-                              } else {}
-                              // login();
-                            },
-                            child: Text(
-                              "SIGN IN",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
+                        isloading
+                            ? Center(child: CircularProgressIndicator())
+                            : SizedBox(
+                                width: double.infinity,
+                                height: 46,
+                                child: TextButton(
+                                  style: TextButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(24)),
+                                    primary: Colors.white,
+                                    backgroundColor: Color(0xFF4167b2),
+                                  ),
+                                  onPressed: () {
+                                    final isvalid =
+                                        _formKey.currentState!.validate();
+                                    if (isvalid) {
+                                      login(email.text, password.text);
+                                    } else {}
+                                    // login();
+                                  },
+                                  child: Text(
+                                    "SIGN IN",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   )

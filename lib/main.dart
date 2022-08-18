@@ -1,4 +1,5 @@
 import 'package:final_year_project/screens/auth_screen/login_screen.dart';
+import 'package:final_year_project/screens/splashScreen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         // fontFamily: 'baloo',
         primarySwatch: Colors.blue,
       ),
-      home: const LoginScreen(),
+      home: const SplashScreen(),
     );
   }
 }

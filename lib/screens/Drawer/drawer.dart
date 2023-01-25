@@ -1,12 +1,9 @@
 import 'dart:ui';
-
 import 'package:final_year_project/screens/Drawer/user_specific_services.dart/check_user_services.dart';
 import 'package:final_year_project/screens/auth_screen/login_screen.dart';
 import 'package:final_year_project/screens/user_profile/user_profile.dart';
-import 'package:final_year_project/screens/user_profile/user_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Drawerbox extends StatelessWidget {
@@ -35,7 +32,7 @@ class Drawerbox extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "i-Services",
+                          "Tezraftar",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
@@ -104,9 +101,7 @@ class Drawerbox extends StatelessWidget {
                         "Settings",
                         style: TextStyle(fontSize: 14),
                       ),
-                      onTap: () {
-                        print("Settings");
-                      },
+                      onTap: () {},
                     ),
                     Divider(
                       thickness: 1,
@@ -134,9 +129,7 @@ class Drawerbox extends StatelessWidget {
                         "Help",
                         style: TextStyle(fontSize: 14),
                       ),
-                      onTap: () {
-                        print("Help");
-                      },
+                      onTap: () {},
                     ),
                     Divider(
                       thickness: 1,

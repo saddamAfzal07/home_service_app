@@ -52,6 +52,8 @@ dependencies:
   uuid: ^3.0.6
   custom_info_window: ^1.0.1
   lottie: ^1.4.0
+  action_slider: ^0.6.0
+
 
 
 
@@ -60,7 +62,7 @@ dev_dependencies:
   flutter_lints: ^1.0.4
 
 flutter_app_name:
-  name: "I Services"
+  name: "Tezraftar"
   flutter_test:
     sdk: flutter
 

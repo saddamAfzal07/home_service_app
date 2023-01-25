@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         backgroundColor: Color(0xff3c83f1),
         elevation: 0,
-        title: Text("Fori Kam"),
+        title: Text("Tezraftar"),
       ),
       drawer: Drawerbox(),
       body: SingleChildScrollView(

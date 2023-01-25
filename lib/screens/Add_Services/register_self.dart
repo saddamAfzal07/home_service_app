@@ -77,7 +77,7 @@ class _RegisterServiceState extends State<RegisterService> {
     } else {
       throw Exception("Failed to load data");
     }
-  }
+  } 
 
   ///Validation
   submit() {
@@ -409,26 +409,27 @@ class _RegisterServiceState extends State<RegisterService> {
                       ),
                       SizedBox(height: 20),
                       ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: _placesList.length,
-                          itemBuilder: ((context, index) {
-                            return ListTile(
-                              onTap: () async {
-                                List<Location> locations =
-                                    await locationFromAddress(
-                                        _placesList[index]["description"]);
-                                setState(() {
-                                  address = _placesList[index]["description"];
-                                  longitudeAddress = locations.last.longitude;
-                                  LatitudeAddress = locations.last.latitude;
-                                  // print(
-                                  //    " longitudeAddress + " " + LatitudeAddress");
-                                });
-                                _controller.clear();
-                              },
-                              title: Text(_placesList[index]["description"]),
-                            );
-                          })),
+                        shrinkWrap: true,
+                        itemCount: _placesList.length,
+                        itemBuilder: ((context, index) {
+                          return ListTile(
+                            onTap: () async {
+                              List<Location> locations =
+                                  await locationFromAddress(
+                                      _placesList[index]["description"]);
+                              setState(() {
+                                address = _placesList[index]["description"];
+                                longitudeAddress = locations.last.longitude;
+                                LatitudeAddress = locations.last.latitude;
+                                // print(
+                                //    " longitudeAddress + " " + LatitudeAddress");
+                              });
+                              _controller.clear();
+                            },
+                            title: Text(_placesList[index]["description"]),
+                          );
+                        }),
+                      ),
 
                       SizedBox(height: 20),
                       isloading == true
